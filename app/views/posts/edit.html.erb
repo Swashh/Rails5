@@ -1,5 +1,5 @@
 <h1>Редактирование поста</h1>
-<%= form_for :post, url: posts_path do |f| %>
+<%= form_for :post, url: post_path(@post), method: :patch do |f| %>
     <p>
       Название<br>
       <%= f.text_field(:title, {:class => 'form-control'}) %>
@@ -11,9 +11,6 @@
     <p>
 
       <%= f.submit({:class => 'btn btn-info'}) %>
-    </p>
-    <p>
-      <%= select("post", "category_id", Category.all.collect {|p| [ p.title, p.id ] }, { include_blank: true })  %>
     </p>
 
 <% end %>

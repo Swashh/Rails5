@@ -7,8 +7,8 @@ class PostsController < ApplicationController
   end
 
   def new
-    # @category = Category.find(params[:category_id])
-    # @post = @category.posts.new(post_params)
+    @category = Category.find(params[:category_id])
+    @post = @category.posts.new(post_params)
   end
 
   def edit
@@ -17,7 +17,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    @category = Category.find(params[:category_id])
     @post = Post.new(post_params)
     @post.save
     redirect_to @post

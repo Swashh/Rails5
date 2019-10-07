@@ -40,7 +40,7 @@
 
 <% end %>
 
-<%= form_for :post, url: posts_path(@category) do |f| %>
+<%= form_for :post, url: post_path(@category) do |f| %>
 
     <p>
       Название поста<br>
@@ -55,3 +55,4 @@
       <%= f.submit({:class => 'btn btn-info'}) %>
     </p>
 <% end %>
+<span class="btn btn-outline"><%= link_to "Добавление постов", url: category_path(@post) %></span>
