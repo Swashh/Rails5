@@ -1,9 +1,20 @@
 <h1>Добавление нового поста</h1>
-<%= form_for :post, url: posts_path do |f| %>
-
+<%= form_for :post, url: category_posts_path do |f| %>
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2>
+            <%= pluralize(@post.errors.count, "ошибки не позволили сохранить эту статью:") %>
+          </h2>
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
     <p>
       Название поста<br>
-      <%= f.text_field(:title, {:class => 'form-control'}) %>
+      <%= f.text_field(:title,{:class => 'form-control'}) %>
     </p>
     <p>
       Описание поста<br>

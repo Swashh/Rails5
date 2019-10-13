@@ -1,9 +1,12 @@
 class PostsController < ApplicationController
   def index
+    @category = Category.find(params[:category_id])
     @post = Post.all
   end
 
   def show
+    @category = Category.find(params[:category_id])
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -12,24 +15,34 @@ class PostsController < ApplicationController
   end
 
   def edit
-    # @category = Category.find(params[:category_id])
-    # @post = @category.posts
+    @category = Category.find(params[:category_id])
+    @post = @category.posts.find(params[:id])
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.save
-    redirect_to @post
+    @category = Category.find(params[:category_id])
+    @post = @category.posts.new(post_params)
+      if @post.save
+        redirect_to @category
+      else
+        render 'new'
+      end
   end
 
   def update
     @category = Category.find(params[:category_id])
-    @post = @category.posts.update(post_params)
+    @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to @category
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @post.destroy
+    redirect_to categories_path
   end
 
   private

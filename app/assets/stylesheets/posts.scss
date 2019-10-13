@@ -1,3 +1,26 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+<html>
+<head>
+<style>
+ .layer1 {
+   background-color: #fc0; /* Цвет фона слоя */
+   padding: 5px; /* Поля вокруг текста */
+   float: left; /* Обтекание по правому краю */
+   width: 200px; /* Ширина слоя */
+ }
+.layer2 {
+  background-color: #c0c0c0; /* Цвет фона слоя */
+  padding: 5px; /* Поля вокруг текста */
+  width: 300px; /* Ширина слоя */
+  float: left; /* Обтекание по правому краю */
+}
+.clear {
+  clear: left; /* Отмена обтекания */
+
+
+}
+</style>
+</head>
+</html>

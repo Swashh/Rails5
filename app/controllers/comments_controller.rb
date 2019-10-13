@@ -1,8 +1,15 @@
 class CommentsController < ApplicationController
   def create
-    @category = Category.find(params[:category_id])
-    @comment = @category.comments.create(comment_params)
-    redirect_to category_path(@category)
+    if params[:post_id]
+      @category = Category.find(params[:category_id])
+      @post = @category.posts.find(params[:post_id])
+      @comment = @post.comments.create(comment_params)
+      redirect_to category_post_path(@category, @post)
+    else
+      @category = Category.find(params[:category_id])
+      @comment = @category.comments.create(comment_params)
+      redirect_to category_path(@category)
+    end
   end
 
   private

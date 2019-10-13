@@ -1,58 +1,66 @@
-<h1> <%= @category.title %></h1>
-<p1> <%= @category.text %></p1>
-<hr>
-<h1>Все наши комментарии</h1>
-<% @category.comments.each do |comment| %>
-    <div class="alert alert-light">
-      <h3><%= comment.title %></h3>
-      <p3><%= comment.text %></p3>
-    </div>
-    <br>
-<% end %>
+<div style="display: flex; flex-flow: row wrap; justify-content: space-between;">
+  <div style="flex: 100% 0 0; display: flex; flex-flow: column nowrap; align-items: center;">
+    <h1> <%= @category.title %></h1>
+    <p1> <%= @category.text %></p1>
+    <hr>
+  </div>
 
-<h2>Комментарии:</h2>
-<%= form_for ( [@category, @category.comments.build] ) do |f| %>
+  <div style="flex: calc(50% - 15px) 0 0;">
+    <h2>Комментарии</h2>
+    <%= form_for ( [@category, @category.comments.build] ) do |f| %>
+        <p>
+          Название<br>
+          <%= f.text_field(:title, {:class => 'form-control'}) %>
+        </p>
+        <p>
+          Описание<br>
+          <%= f.text_area(:text,{:class => 'form-control'})%>
+        </p>
+        <p>
+          <%= f.submit("Добавить комментарий", {:class => 'btn btn-info'}) %>
+          <%= link_to "Назад", categories_path, :class => 'btn btn-info' %>
+        </p>
+    <% end %>
+    <hr>
 
-    <p>
-      Название<br>
-      <%= f.text_field(:title, {:class => 'form-control'}) %>
-    </p>
-    <p>
-      Текст комментария<br>
-      <%= f.text_area(:text,{:class => 'form-control'})%>
-    </p>
-    <p>
+    <h3>Все комментарии</h3>
+    <% @category.comments.each do |comment| %>
+        <div class="alert alert-light">
+          <p><strong><%= comment.title %>  </strong><%= comment.text %></p>
+        </div>
+        <br>
+    <% end %>
+  </div>
 
-      <%= f.submit("Добавить комментарий", {:class => 'btn btn-info'}) %>
-      <%= link_to "Назад", categories_path, :class => 'btn btn-info' %>
+  <div style="flex: calc(50% - 15px) 0 0;">
+    <h2>Создание нового поста</h2>
 
-    </p>
 
-<% end %>
-
-<h1>Создание нового поста</h1>
-<% @category.posts.each do |post| %>
-    <div class="alert alert-light">
-      <h3><%= post.title %></h3>
-      <p3><%= post.text %></p3>
-    </div>
-    <br>
-
-<% end %>
-
-<%= form_for :post, url: post_path(@category) do |f| %>
-
-    <p>
-      Название поста<br>
-      <%= f.text_field(:title, {:class => 'form-control'}) %>
-    </p>
-    <p>
-      Описание поста<br>
-      <%= f.text_area(:text,{:class => 'form-control'})%>
-    </p>
-    <p>
-
-      <%= f.submit({:class => 'btn btn-info'}) %>
-    </p>
-<% end %>
-<span class="btn btn-outline"><%= link_to "Добавление постов", url: category_path(@post) %></span>
+    <%= form_for :post, url: category_posts_path(@category, @post) do |f| %>
+        <p>
+          Название<br>
+          <%= f.text_field(:title, {:class => 'form-control'}) %>
+        </p>
+        <p>
+          Описание<br>
+          <%= f.text_area(:text,{:class => 'form-control'})%>
+        </p>
+        <p>
+          <%= f.submit("Сохранить",{:class => 'btn btn-info'}) %>
+          <%= link_to "Назад", categories_path, :class => 'btn btn-info' %>
+        </p>
+    <% end %>
+    <hr>
+    <h3>Все посты</h3>
+    <% @category.posts.each do |post| %>
+        <div class="alert alert-light">
+          <h3><%= post.title %></h3>
+          <p  ><%= post.text %></p>
+          <%= link_to "Показать пост", category_post_path(@category, post), class: 'btn btn-info' %>
+          <%= link_to "Pедактировать пост", edit_category_post_path(@category, post), class: 'btn btn-info' %>
+          <%= link_to "Удалить пост", category_post_path(@category, post), method: :delete, data: {confirm: "Хотите удалить категорию?"}, class: 'btn btn-danger' %>
+        </div>
+        <br>
+    <% end %>
+  </div>
+</div>
