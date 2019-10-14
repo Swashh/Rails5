@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :category
   has_many :comments, as: :item, dependent: :destroy
+  mount_uploader :image, ImageUploader
 
   validates_format_of :title, :text, :with => /\A[a-zA-Z\.]{2,}+( [a-zA-Z\.]{2,}+)+\Z/,
                       message: 'Начало должно быть с большой буквы, только текст, минимум 2 слова , минимум по 2 символа, принимаеться точка'

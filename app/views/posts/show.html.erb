@@ -2,7 +2,11 @@
 <h1> <%= @post.title %></h1>
 <h2>Описание поста :</h2>
 <p1> <%= @post.text %></p1>
+<hr>
+
 <p>
+  <%= image_tag @post.image.url(:large), class: 'image_show' if @post.image? %>
+</p>
 
 <h1>Все наши комментарии</h1>
 <% @post.comments.each do |comment| %>
@@ -27,7 +31,8 @@
     <p>
 
       <%= f.submit("Добавить комментарий", {:class => 'btn btn-info'}) %>
-      <%= link_to "Назад", categories_path, :class => 'btn btn-info' %>
+      <%= link_to "Назад", @category, :class => 'btn btn-info' %>
+      <%= f.file_field("Добавить картинку", {:class => 'btn btn-info'}) %>
 
     </p>
 

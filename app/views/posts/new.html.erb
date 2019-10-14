@@ -1,5 +1,5 @@
 <h1>Добавление нового поста</h1>
-<%= form_for :post, url: category_posts_path do |f| %>
+<%= form_for :post, html: {multipart: true}, url: category_posts_path do |f| %>
     <% if @post.errors.any? %>
         <div id="error_explanation">
           <h2>
@@ -21,7 +21,11 @@
       <%= f.text_area(:text,{:class => 'form-control'})%>
     </p>
     <p>
+      <%= f.file_field :image %>
+    </p>
+    <p>
       <%= f.submit("Сохранить пост",{:class => 'btn btn-info'}) %>
+      <%= link_to "Назад", categories_path, :class => 'btn btn-info' %>
     </p>
 
 <% end %>

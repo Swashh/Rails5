@@ -8,6 +8,7 @@
   <div style="flex: calc(50% - 15px) 0 0;">
     <h2>Комментарии</h2>
     <%= form_for ( [@category, @category.comments.build] ) do |f| %>
+
         <p>
           Название<br>
           <%= f.text_field(:title, {:class => 'form-control'}) %>
@@ -48,6 +49,7 @@
         <p>
           <%= f.submit("Сохранить",{:class => 'btn btn-info'}) %>
           <%= link_to "Назад", categories_path, :class => 'btn btn-info' %>
+          <%= f.file_field :image%>
         </p>
     <% end %>
     <hr>
@@ -55,7 +57,7 @@
     <% @category.posts.each do |post| %>
         <div class="alert alert-light">
           <h3><%= post.title %></h3>
-          <p  ><%= post.text %></p>
+          <p><%= post.text %></p>
           <%= link_to "Показать пост", category_post_path(@category, post), class: 'btn btn-info' %>
           <%= link_to "Pедактировать пост", edit_category_post_path(@category, post), class: 'btn btn-info' %>
           <%= link_to "Удалить пост", category_post_path(@category, post), method: :delete, data: {confirm: "Хотите удалить категорию?"}, class: 'btn btn-danger' %>

@@ -40,14 +40,15 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @category = Category.find(params[:category_id])
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to categories_path
+    redirect_to @category
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :text, :category_id)
+    params.require(:post).permit(:title, :text, :category_id, :image)
   end
 end
 
